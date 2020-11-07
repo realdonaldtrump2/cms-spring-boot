@@ -1,27 +1,24 @@
 package com.trump.cms.entity;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
 import javax.persistence.*;
-
+import java.util.Date;
 
 @Entity
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
-@Table(name = "user")
-public class User {
+@Table(name = "article_tag")
+public class ArticleTag {
 
     @Id //这是一个主键
     @GeneratedValue(strategy = GenerationType.IDENTITY)//自增主键
     private Integer id;
 
-    @Column(name = "username", length = 50, unique = true)
-    private String username;
-
-    @Column(name = "password", length = 50)
-    private String password;
+    @Column(name = "title", length = 50, unique = true)
+    private String title;
 
     @Column(name = "is_delete")
     private Integer isDelete;
@@ -34,7 +31,7 @@ public class User {
     @Column(name = "update_datetime")
     private Date updateDatetime;
 
-    public User() {
+    public ArticleTag() {
     }
 
     public Integer getId() {
@@ -45,20 +42,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getTitle() {
+        return title;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Integer getIsDelete() {
@@ -90,13 +79,13 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "ArticleTag{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
+                ", title='" + title + '\'' +
                 ", isDelete=" + isDelete +
                 ", createDatetime=" + createDatetime +
                 ", updateDatetime=" + updateDatetime +
                 '}';
     }
+
 }
