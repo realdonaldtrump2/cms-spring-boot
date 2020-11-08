@@ -51,11 +51,27 @@ public class ArticleTagService implements InterfaceArticleTagService {
     }
 
 
+    @Transactional
+    public ArticleTag update(ArticleTag articleTag2, ArticleTag articleTag) {
+
+        articleTag2.setTitle(articleTag.getTitle());
+        return articleTagRepository.save(articleTag2);
+
+    }
+
+
     public ArticleTag find(Integer id) {
 
         return articleTagRepository.findById(id).orElse(null);
 
     }
 
+
+    @Transactional
+    public void delete(ArticleTag articleTag) {
+
+        articleTagRepository.delete(articleTag);
+
+    }
 
 }

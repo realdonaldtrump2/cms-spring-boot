@@ -47,7 +47,20 @@
     });
 
     $('#logoutButton').on('click', function () {
-        window.top.location = '/logout';
+        layer.confirm('确认退出吗？', {shade: 0, resize: false}, function () {
+            window.top.location = '/logout';
+        });
+    });
+
+    $('.delete-button').on('click',function(){
+        var that = this;
+        layer.confirm('确认删除吗？', {shade: 0, resize: false}, function () {
+            window.location = $(that).attr('data-url');
+        });
+    });
+
+    $('.search-form-switch').on('click', function () {
+        $('.search-form-container').toggle();
     });
 
 })(jQuery); // End of use strict

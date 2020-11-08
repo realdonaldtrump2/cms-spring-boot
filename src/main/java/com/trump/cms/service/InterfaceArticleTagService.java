@@ -15,4 +15,7 @@ public interface InterfaceArticleTagService {
 
     ArticleTag find(Integer id);
 
+    void delete(ArticleTag articleTag);
+
+
 }

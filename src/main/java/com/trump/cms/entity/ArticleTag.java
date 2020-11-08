@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,6 +27,8 @@ import java.util.Date;
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "article_tag")
+@SQLDelete(sql = "update article_tag set is_delete = 1 where id = ?")
+@Where(clause = "is_delete = 0")
 public class ArticleTag implements Serializable {
 
     //这是一个主键 自增主键
@@ -58,6 +62,11 @@ public class ArticleTag implements Serializable {
     }
 
     public ArticleTag(String title) {
+        this.title = title;
+    }
+
+    public ArticleTag(Integer id, String title) {
+        this.id = id;
         this.title = title;
     }
 
@@ -102,7 +111,6 @@ public class ArticleTag implements Serializable {
     public void setUpdateDatetime(Date updateDatetime) {
         this.updateDatetime = updateDatetime;
     }
-
 
     @Override
     public String toString() {

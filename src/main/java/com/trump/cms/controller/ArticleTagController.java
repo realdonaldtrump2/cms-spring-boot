@@ -78,4 +78,52 @@ public class ArticleTagController {
     }
 
 
+    @RequestMapping(value = "/article-tag/update", method = RequestMethod.GET)
+    public String update(
+            @RequestParam(value = "id", defaultValue = "0") int id,
+            Model model
+    ) {
+
+        ArticleTag articleTag = articleTagService.find(id);
+        if (articleTag == null) {
+            throw new RuntimeException("参数错误");
+        }
+        model.addAttribute("articleTag", articleTag);
+        return "article-tag/update";
+    }
+
+
+    @RequestMapping(value = "/article-tag/update", method = RequestMethod.POST)
+    public String modify(
+            @RequestParam(value = "id", defaultValue = "0") int id,
+            @Valid ArticleTag articleTag, BindingResult bindingResult
+    ) {
+
+        ArticleTag articleTag2 = articleTagService.find(id);
+        if (articleTag2 == null) {
+            throw new RuntimeException("参数错误");
+        }
+
+        articleTagService.update(articleTag2, articleTag);
+        System.out.println(articleTag2);
+        return "redirect:/article-tag/index";
+
+    }
+
+
+    @RequestMapping(value = "/article-tag/delete", method = RequestMethod.GET)
+    public String delete(
+            @RequestParam(value = "id", defaultValue = "0") int id
+    ) {
+
+        ArticleTag articleTag = articleTagService.find(id);
+        if (articleTag == null) {
+            throw new RuntimeException("参数错误");
+        }
+        articleTagService.delete(articleTag);
+        return "redirect:/article-tag/index";
+
+    }
+
+
 }
