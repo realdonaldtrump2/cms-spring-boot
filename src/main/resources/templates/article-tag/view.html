@@ -21,7 +21,7 @@
 <!-- Page Wrapper -->
 <div id="wrapper">
 
-    <div th:replace="~{layout :: sidebar ('article-tag/create')}" ></div>
+    <div th:replace="~{layout :: sidebar ('article-tag/view')}" ></div>
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -49,15 +49,18 @@
 
                             <div style="height: 15px;" ></div>
 
-                            <form method="post" th:action="@{/article-tag/create}" th:object="${articleTag}">
-                                <div class="form-group">
-                                    <label>名称:</label>
-                                    <input type="text" th:field="*{title}" th:class="${#fields.hasErrors('title')}?'form-control is-invalid':'form-control'" >
-                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary">确认</button>
-                            </form>
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <tbody>
+                                <tr>
+                                    <td>序号</td>
+                                    <td th:text="${articleTag.id}" ></td>
+                                </tr>
+                                <tr>
+                                    <td>名称</td>
+                                    <td th:text="${articleTag.title}" ></td>
+                                </tr>
+                                </tbody>
+                            </table>
 
                         </div>
                     </div>

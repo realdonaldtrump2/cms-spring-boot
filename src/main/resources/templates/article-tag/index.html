@@ -61,7 +61,20 @@
                                 <tr th:each="articleTag : ${articleTagPage}">
                                     <td th:text="${articleTag.id}" ></td>
                                     <td th:text="${articleTag.title}" ></td>
-                                    <td></td>
+                                    <td>
+                                        <a class="btn btn-primary btn-sm" th:href="'/article-tag/view?id='+${articleTag.id}" >
+                                            <span class="text">详情</span>
+                                        </a>
+
+                                        <a class="btn btn-primary btn-sm" th:href="'/article-tag/update?id='+${articleTag.id}" >
+                                            <span class="text">编辑</span>
+                                        </a>
+
+                                        <a class="btn btn-primary btn-sm delete-button" href="javascript:void(0)" th:data-id="${articleTag.id}" th:data-href="'/article-tag/update?id='+${articleTag.id}" >
+                                            <span class="text">删除</span>
+                                        </a>
+
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -122,8 +135,16 @@
 <!-- Core plugin JavaScript-->
 <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
 
+<script th:src="@{/vendor/layer/layer.js}"></script>
+
 <!-- Custom scripts for all pages-->
 <script th:src="@{/js/common.js}"></script>
+<script>
 
+    // delete-button
+
+
+
+</script>
 </body>
 </html>

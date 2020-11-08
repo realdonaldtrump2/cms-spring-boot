@@ -43,6 +43,20 @@ public class ArticleTagController {
 
     }
 
+    @RequestMapping("/article-tag/view")
+    public String view(
+            Model model,
+            @RequestParam(value = "id", defaultValue = "0") int id
+    ) {
+
+        ArticleTag articleTag = articleTagService.find(id);
+        if (articleTag == null) {
+            throw new RuntimeException("参数错误");
+        }
+        model.addAttribute("articleTag", articleTag);
+        return "article-tag/view";
+
+    }
 
     @RequestMapping(value = "/article-tag/create", method = RequestMethod.GET)
     public String create(Model model) {

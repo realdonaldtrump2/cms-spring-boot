@@ -39,8 +39,8 @@
         </a>
         <div id="collapseDepartment" th:class="${#strings.startsWith(activeUrl,'article-tag/')}?'collapse show':'collapse'" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a th:class="${#strings.startsWith(activeUrl,'article-tag/index')}?'collapse-item active':'collapse-item'" th:href="@{/article-tag/index}" >文章标签列表</a>
-                <a th:class="${#strings.startsWith(activeUrl,'article-tag/create')}?'collapse-item active':'collapse-item'" th:href="@{/article-tag/create}" >文章标签添加</a>
+                <a th:class="${#strings.startsWith(activeUrl,'article-tag/')&&!#strings.startsWith(activeUrl,'article-tag/create')}?'collapse-item active':'collapse-item'" th:href="@{/article-tag/index}" >文章标签列表</a>
+                <a th:class="${#strings.startsWith(activeUrl,'article-tag/')&&#strings.startsWith(activeUrl,'article-tag/create')}?'collapse-item active':'collapse-item'" th:href="@{/article-tag/create}" >文章标签添加</a>
             </div>
         </div>
     </li>

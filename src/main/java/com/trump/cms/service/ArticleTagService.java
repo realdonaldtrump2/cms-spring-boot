@@ -51,4 +51,11 @@ public class ArticleTagService implements InterfaceArticleTagService {
     }
 
 
+    public ArticleTag find(Integer id) {
+
+        return articleTagRepository.findById(id).orElse(null);
+
+    }
+
+
 }

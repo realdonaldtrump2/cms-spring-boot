@@ -13,4 +13,6 @@ public interface InterfaceArticleTagService {
     ArticleTag create(ArticleTag articleTag);
 
 
+    ArticleTag find(Integer id);
+
 }
