@@ -1,6 +1,5 @@
 package com.trump.cms.service;
 
-
 import com.trump.cms.entity.ArticleTag;
 import com.trump.cms.param.ArticleTagParam;
 import com.trump.cms.repository.ArticleTagRepository;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ArticleTagService {
+public class ArticleTagService implements InterfaceArticleTagService {
 
     @Autowired
     ArticleTagRepository articleTagRepository;
@@ -32,12 +31,24 @@ public class ArticleTagService {
             List<Predicate> predicates = new ArrayList<Predicate>();
 
             if (!StringUtils.isEmpty(articleTagParam.getTitle())) {
-                predicates.add(criteriaBuilder.like(root.get("title"), "%"+articleTagParam.getTitle()+"%"));
+                predicates.add(criteriaBuilder.like(root.get("title"), "%" + articleTagParam.getTitle() + "%"));
             }
 
             return criteriaQuery.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
         }, pageable);
 
     }
+
+    @Transactional
+    public ArticleTag create(ArticleTag articleTag) {
+
+        return articleTagRepository.save(
+                new ArticleTag(
+                        articleTag.getTitle()
+                )
+        );
+
+    }
+
 
 }

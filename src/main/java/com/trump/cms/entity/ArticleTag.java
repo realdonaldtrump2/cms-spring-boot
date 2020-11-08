@@ -3,35 +3,62 @@ package com.trump.cms.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import javax.validation.constraints.*;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
-@Entity
-@JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
-@Table(name = "article_tag")
-public class ArticleTag {
 
-    @Id //这是一个主键
-    @GeneratedValue(strategy = GenerationType.IDENTITY)//自增主键
+@Entity
+@DynamicInsert
+@DynamicUpdate
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
+@EntityListeners(AuditingEntityListener.class)
+@Table(name = "article_tag")
+public class ArticleTag implements Serializable {
+
+    //这是一个主键 自增主键
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "title", length = 50, unique = true)
+    @NotNull(message = "文章标签不能为空")
+    @Size(min = 1, max = 20, message = "文章标签长度是1-20位")
+    @Column(name = "title", length = 20, unique = true, columnDefinition = "varchar(255)")
     private String title;
 
-    @Column(name = "is_delete")
-    private Integer isDelete;
+    @Column(name = "is_delete", columnDefinition = "int(11)")
+    private Integer isDelete = 0;
 
+    @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name = "create_datetime")
+    @Column(name = "create_datetime", columnDefinition = "datetime default '1970-01-01 00:00:00'")
     private Date createDatetime;
 
+    @CreatedDate
+    @LastModifiedDate
+    @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name = "update_datetime")
+    @Column(name = "update_datetime", columnDefinition = "datetime default '1970-01-01 00:00:00'")
     private Date updateDatetime;
 
     public ArticleTag() {
+
+    }
+
+    public ArticleTag(String title) {
+        this.title = title;
     }
 
     public Integer getId() {

@@ -1,6 +1,5 @@
 package com.trump.cms.controller;
 
-
 import com.trump.cms.entity.ArticleTag;
 import com.trump.cms.param.ArticleTagParam;
 import com.trump.cms.service.ArticleTagService;
@@ -8,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
 import java.util.Iterator;
 
 
@@ -40,6 +41,26 @@ public class ArticleTagController {
         model.addAttribute("articleTagPage", articleTagPage);
         return "article-tag/index";
 
+    }
+
+
+    @RequestMapping(value = "/article-tag/create", method = RequestMethod.GET)
+    public String create(Model model) {
+        model.addAttribute("articleTag", new ArticleTag());
+        return "article-tag/create";
+    }
+
+
+    @RequestMapping(value = "/article-tag/create", method = RequestMethod.POST)
+    public String save(@Valid ArticleTag articleTag, BindingResult bindingResult) {
+        System.out.println(articleTag);
+        if (bindingResult.hasErrors()) {
+            return "article-tag/create";
+        }
+
+        ArticleTag articleTag2 = articleTagService.create(articleTag);
+        System.out.println(articleTag2);
+        return "redirect:/article-tag/index";
     }
 
 
