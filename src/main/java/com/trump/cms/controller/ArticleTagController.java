@@ -30,7 +30,7 @@ public class ArticleTagController {
             @RequestParam(value = "title", defaultValue = "") String title
     ) {
 
-        Page<ArticleTag> articleTagPage = articleTagService.getPage(pageNum, pageSize, new ArticleTagParam(title));
+        Page<ArticleTag> articleTagPage = articleTagService.page(pageNum, pageSize, new ArticleTagParam(title));
         System.out.println("总页数" + articleTagPage.getTotalPages());
         System.out.println("当前页是：" + pageNum);
         System.out.println("分页数据：");

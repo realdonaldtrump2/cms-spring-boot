@@ -23,7 +23,7 @@ public class ArticleTagService implements InterfaceArticleTagService {
     ArticleTagRepository articleTagRepository;
 
     @Transactional(readOnly = true)  // 只读事务
-    public Page<ArticleTag> getPage(Integer pageNum, Integer pageLimit, ArticleTagParam articleTagParam) {
+    public Page<ArticleTag> page(Integer pageNum, Integer pageLimit, ArticleTagParam articleTagParam) {
 
         System.out.println(articleTagParam);
         Pageable pageable = PageRequest.of(pageNum, pageLimit, Sort.by(Sort.Direction.DESC, "createDatetime"));

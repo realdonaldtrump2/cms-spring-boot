@@ -32,15 +32,31 @@
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <!--/*@thymesVar id="startsWith" type=""*/-->
-        <a th:class="${#strings.startsWith(activeUrl,'article-tag/')} ?'nav-link':'nav-link collapsed'" href="#" data-toggle="collapse" data-target="#collapseDepartment"
-           th:aria-expanded="${#strings.startsWith(activeUrl,'article-tag/')}?'true':'false'" aria-controls="collapseDepartment">
+        <a th:class="${#strings.startsWith(activeUrl,'article-tag/')} ?'nav-link':'nav-link collapsed'" href="#" data-toggle="collapse" data-target="#collapseArticleTag"
+           th:aria-expanded="${#strings.startsWith(activeUrl,'article-tag/')}?'true':'false'" aria-controls="collapseArticleTag">
             <i class="fas fa-fw fa-cog"></i>
             <span>文章标签管理</span>
         </a>
-        <div id="collapseDepartment" th:class="${#strings.startsWith(activeUrl,'article-tag/')}?'collapse show':'collapse'" data-parent="#accordionSidebar">
+        <div id="collapseArticleTag" th:class="${#strings.startsWith(activeUrl,'article-tag/')}?'collapse show':'collapse'" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a th:class="${#strings.startsWith(activeUrl,'article-tag/')&&!#strings.startsWith(activeUrl,'article-tag/create')}?'collapse-item active':'collapse-item'" th:href="@{/article-tag/index}" >文章标签列表</a>
                 <a th:class="${#strings.startsWith(activeUrl,'article-tag/')&&#strings.startsWith(activeUrl,'article-tag/create')}?'collapse-item active':'collapse-item'" th:href="@{/article-tag/create}" >文章标签添加</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <!--/*@thymesVar id="startsWith" type=""*/-->
+        <a th:class="${#strings.startsWith(activeUrl,'article-category/')} ?'nav-link':'nav-link collapsed'" href="#" data-toggle="collapse" data-target="#collapseDepartment"
+           th:aria-expanded="${#strings.startsWith(activeUrl,'article-category/')}?'true':'false'" aria-controls="collapseDepartment">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>文章分类管理</span>
+        </a>
+        <div id="collapseDepartment" th:class="${#strings.startsWith(activeUrl,'article-category/')}?'collapse show':'collapse'" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a th:class="${#strings.startsWith(activeUrl,'article-category/')&&!#strings.startsWith(activeUrl,'article-category/create')}?'collapse-item active':'collapse-item'" th:href="@{/article-category/index}" >文章分类列表</a>
+                <a th:class="${#strings.startsWith(activeUrl,'article-category/')&&#strings.startsWith(activeUrl,'article-category/create')}?'collapse-item active':'collapse-item'" th:href="@{/article-category/create}" >文章分类添加</a>
             </div>
         </div>
     </li>
