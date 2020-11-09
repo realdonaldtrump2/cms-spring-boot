@@ -1,12 +1,20 @@
 package com.trump.cms.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.trump.cms.filter.MyFilter;
+import com.trump.cms.listener.MyListener;
+import com.trump.cms.servlet.MyServlet;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
+import java.util.Arrays;
 
 
 /**
@@ -93,6 +101,31 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             3.Security5默认要求密码使用加密，不加密的话就使用"{noop}123456"这样的写法，加密的话需要使用
                 PasswordEncoder的实现类进行加密
          */
+    }
+
+
+    // 注册servlet
+    @Bean
+    public ServletRegistrationBean myServlet() {
+        ServletRegistrationBean registrationBean = new ServletRegistrationBean(new MyServlet(), "/my-servlet");
+        registrationBean.setLoadOnStartup(1);
+        return registrationBean;
+    }
+
+    // 注册过滤器
+    @Bean
+    public FilterRegistrationBean myFilter() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        registrationBean.setFilter(new MyFilter());
+        registrationBean.setUrlPatterns(Arrays.asList("/my-servlet"));
+        return registrationBean;
+    }
+
+    // 注册监听器
+    @Bean
+    public ServletListenerRegistrationBean myListener() {
+        ServletListenerRegistrationBean<MyListener> registrationBean = new ServletListenerRegistrationBean<>(new MyListener());
+        return registrationBean;
     }
 
 
