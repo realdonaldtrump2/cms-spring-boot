@@ -18,6 +18,7 @@ import javax.validation.constraints.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 
 @Entity
@@ -29,6 +30,7 @@ import java.util.Date;
 @SQLDelete(sql = "update article_tag set is_delete = 1 where id = ?")
 @Where(clause = "is_delete = 0")
 public class ArticleTag implements Serializable {
+
 
     //这是一个主键 自增主键
     @Id
@@ -121,5 +123,6 @@ public class ArticleTag implements Serializable {
                 ", updateDatetime=" + updateDatetime +
                 '}';
     }
+
 
 }
