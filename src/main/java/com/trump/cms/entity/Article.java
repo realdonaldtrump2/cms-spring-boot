@@ -2,7 +2,10 @@ package com.trump.cms.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import org.hibernate.annotations.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -10,11 +13,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +32,7 @@ import java.util.List;
 @Table(name = "article")
 @SQLDelete(sql = "update article set is_delete = 1 where id = ?")
 @Where(clause = "is_delete = 0")
+@TypeDef(name = "json", typeClass = JsonStringType.class)
 public class Article implements Serializable {
 
     //这是一个主键 自增主键
@@ -50,17 +56,27 @@ public class Article implements Serializable {
     @Column(name = "article_category_id", columnDefinition = "int(11)")
     private Integer articleCategoryId;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "article_category_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private ArticleCategory articleCategory;
+
+    @Type(type = "json")
     @Column(name = "article_tag_id", columnDefinition = "json")
-    private List<Integer> articleTagId;
+    private Integer[] articleTagId;
 
+//    private List<ArticleTag> articleTagList;
+
+    @Type(type = "json")
     @Column(name = "image_url", columnDefinition = "json")
-    private List<String> imageUrl;
+    private String[] imageUrl;
 
+    @Type(type = "json")
     @Column(name = "file_url", columnDefinition = "json")
-    private List<String> fileUrl;
+    private String[] fileUrl;
 
+    @Type(type = "json")
     @Column(name = "video_url", columnDefinition = "json")
-    private List<String> videoUrl;
+    private String[] videoUrl;
 
     @Column(name = "click_count", columnDefinition = "int(11)")
     private Integer clickCount;
@@ -98,10 +114,10 @@ public class Article implements Serializable {
                 ", describe='" + describe + '\'' +
                 ", userId=" + userId +
                 ", articleCategoryId=" + articleCategoryId +
-                ", articleTagId=" + articleTagId +
-                ", imageUrl=" + imageUrl +
-                ", fileUrl=" + fileUrl +
-                ", videoUrl=" + videoUrl +
+                ", articleTagId=" + Arrays.toString(articleTagId) +
+                ", imageUrl=" + Arrays.toString(imageUrl) +
+                ", fileUrl=" + Arrays.toString(fileUrl) +
+                ", videoUrl=" + Arrays.toString(videoUrl) +
                 ", clickCount=" + clickCount +
                 ", sort=" + sort +
                 ", isRecommend=" + isRecommend +
@@ -152,35 +168,57 @@ public class Article implements Serializable {
         this.articleCategoryId = articleCategoryId;
     }
 
-    public List<Integer> getArticleTagId() {
+    public ArticleCategory getArticleCategory() {
+        return articleCategory;
+    }
+
+    public void setArticleCategory(ArticleCategory articleCategory) {
+        this.articleCategory = articleCategory;
+    }
+
+//    public List<ArticleTag> getArticleTagList() {
+//
+//        if (this.articleTagList == null) {
+//
+//
+//        }
+//
+//        return articleTagList;
+//    }
+//
+//    public void setArticleTagList(List<ArticleTag> articleTagList) {
+//        this.articleTagList = articleTagList;
+//    }
+
+    public Integer[] getArticleTagId() {
         return articleTagId;
     }
 
-    public void setArticleTagId(List<Integer> articleTagId) {
+    public void setArticleTagId(Integer[] articleTagId) {
         this.articleTagId = articleTagId;
     }
 
-    public List<String> getImageUrl() {
+    public String[] getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(List<String> imageUrl) {
+    public void setImageUrl(String[] imageUrl) {
         this.imageUrl = imageUrl;
     }
 
-    public List<String> getFileUrl() {
+    public String[] getFileUrl() {
         return fileUrl;
     }
 
-    public void setFileUrl(List<String> fileUrl) {
+    public void setFileUrl(String[] fileUrl) {
         this.fileUrl = fileUrl;
     }
 
-    public List<String> getVideoUrl() {
+    public String[] getVideoUrl() {
         return videoUrl;
     }
 
-    public void setVideoUrl(List<String> videoUrl) {
+    public void setVideoUrl(String[] videoUrl) {
         this.videoUrl = videoUrl;
     }
 

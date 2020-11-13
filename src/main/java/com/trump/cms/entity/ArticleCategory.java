@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -57,10 +58,11 @@ public class ArticleCategory implements Serializable {
     @Column(name = "update_datetime", columnDefinition = "datetime default '1970-01-01 00:00:00'")
     private Date updateDatetime;
 
+    @OneToMany(mappedBy = "articleCategory")
+    private List<Article> articleList;
 
     public ArticleCategory() {
     }
-
 
     public ArticleCategory(String name) {
         this.name = name;

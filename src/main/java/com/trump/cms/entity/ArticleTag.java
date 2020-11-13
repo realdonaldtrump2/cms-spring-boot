@@ -18,6 +18,7 @@ import javax.validation.constraints.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -58,6 +59,9 @@ public class ArticleTag implements Serializable {
     @Column(name = "update_datetime", columnDefinition = "datetime default '1970-01-01 00:00:00'")
     private Date updateDatetime;
 
+//    @OneToMany(mappedBy = "articleTagList")
+//    private List<Article> articleList;
+
     public ArticleTag() {
 
     }
@@ -69,6 +73,14 @@ public class ArticleTag implements Serializable {
     public ArticleTag(Integer id, String title) {
         this.id = id;
         this.title = title;
+    }
+
+    public ArticleTag(Integer id, String title, Integer isDelete, Date createDatetime, Date updateDatetime) {
+        this.id = id;
+        this.title = title;
+        this.isDelete = isDelete;
+        this.createDatetime = createDatetime;
+        this.updateDatetime = updateDatetime;
     }
 
     public Integer getId() {

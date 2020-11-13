@@ -46,7 +46,8 @@
         </dependency>
         <dependency>
             <groupId>com.vladmihalcea</groupId>
-            <artifactId>hibernate-types-52</artifactId>
+            <artifactId>hibernate-types-5</artifactId>
+            <version>2.4.2</version>
         </dependency>
 
         <dependency>

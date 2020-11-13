@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>SB Admin 2 - Dashboard</title>
+    <!-- Custom fonts for this template-->
+    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+
+</head>
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <div th:replace="~{layout :: sidebar ('article/index')}" ></div>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <div th:replace="~{layout :: topbar}" ></div>
+
+            <div class="container-fluid" >
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">文章管理</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+
+                            <div>
+                                <a th:href="@{/article/create}" class="btn btn-primary btn-icon-split btn-sm">
+                                    <span class="text">添加</span>
+                                </a>
+
+                                <a href="javascript:void(0)" class="btn btn-primary btn-icon-split btn-sm search-form-switch">
+                                    <span class="text">筛选</span>
+                                </a>
+                            </div>
+
+                            <div class="search-form-container" style="display: none;" >
+                                <div class="alert alert-primary" >
+                                    <form method="get" >
+                                        <div class="form-group">
+                                            <label>名称:</label>
+                                            <input type="text" class="form-control" name="title" >
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">筛选</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div style="height: 15px;" ></div>
+
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>名称</th>
+                                    <th>分类</th>
+                                    <th>管理</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="article : ${articlePage}">
+                                    <td th:text="${article.id}" ></td>
+                                    <td th:text="${article.title}" ></td>
+                                    <td th:text="${article.articleCategory.name}" ></td>
+                                    <td>
+                                        <a class="btn btn-primary btn-sm" th:href="'/article/view?id='+${article.id}" >
+                                            <span class="text">详情</span>
+                                        </a>
+
+                                        <a class="btn btn-primary btn-sm" th:href="'/article/update?id='+${article.id}" >
+                                            <span class="text">编辑</span>
+                                        </a>
+
+                                        <a class="btn btn-primary btn-sm delete-button" href="javascript:void(0)" th:data-id="${article.id}" th:data-url="'/article/delete?id='+${article.id}" >
+                                            <span class="text">删除</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <ul class="pagination">
+                                <!-- 首页 -->
+                                <li class="page-item" >
+                                    <a class="page-link" th:href="'/article/index?pageNum=0'">首页</a>
+                                </li>
+                                <!-- 上一页 -->
+                                <li class="page-item" th:if="${articlePage.hasPrevious()}">
+                                    <a class="page-link" th:href="'/article/index?pageNum=' + ${articlePage.previousPageable().getPageNumber()}" th:text="上一页"></a>
+                                </li>
+                                <!-- 中间页 -->
+                                <li class="page-item" th:each="pageNum:${#numbers.sequence(0, articlePage.getTotalPages() - 1)}">
+                                    <a class="page-link" th:href="'/article/index?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum ne articlePage.pageable.getPageNumber()}"></a>
+                                    <a class="page-link" th:href="'/article/index?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum eq articlePage.pageable.getPageNumber()}" th:style="'color:#ffffff;background:#4e73df;'"></a>
+                                </li>
+                                <!-- 下一页 -->
+                                <li class="page-item" th:if="${articlePage.hasNext()}">
+                                    <a class="page-link" th:href="'/article/index?pageNum=' + ${articlePage.nextPageable().getPageNumber()}" th:text="下一页"></a>
+                                </li>
+                                <!-- 尾页 -->
+                                <li class="page-item" >
+                                    <a class="page-link" th:href="'/article/index?pageNum=' + ${articlePage.getTotalPages() - 1}">尾页</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- End of Main Content -->
+
+        <div th:replace="~{layout :: tooter}" ></div>
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<div th:replace="~{layout :: toTop}" ></div>
+
+<!-- Bootstrap core JavaScript-->
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<!-- Core plugin JavaScript-->
+<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+<script th:src="@{/vendor/layer/layer.js}"></script>
+
+<!-- Custom scripts for all pages-->
+<script th:src="@{/js/common.js}"></script>
+<script>
+
+
+
+</script>
+</body>
+</html>
