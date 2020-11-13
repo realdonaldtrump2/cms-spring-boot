@@ -16,15 +16,34 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 
-@SpringBootTest(classes={CmsApplication.class})
+@SpringBootTest(classes = {CmsApplication.class})
 @RunWith(SpringJUnit4ClassRunner.class)
-@Transactional(readOnly = false,propagation = Propagation.REQUIRED)
+@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 class CmsApplicationTests {
 
+    @Autowired
+    ArticleRepository articleRepository;
 
     @Test
     void contextLoads() {
 
+//        Article article = articleRepository.findByTitle("标题");
+//        System.out.println(article);
+//
+//        Article article2 = articleRepository.findByTitleLike("%标%");
+//        System.out.println(article2);
+//
+//        Article article3 = articleRepository.fineByTitleLike3();
+//        System.out.println(article3);
+
+//        Article article4 = articleRepository.fineByTitleLike3("标题");
+//        System.out.println(article4);
+
+//        List<Article> articleList5 = articleRepository.fineByTitleLike4("题");
+//        System.out.println(articleList5);
+
+        long count = articleRepository.getTotalCount();
+        System.out.println(count);
 
     }
 

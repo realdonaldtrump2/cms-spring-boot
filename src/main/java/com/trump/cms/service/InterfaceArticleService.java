@@ -10,5 +10,4 @@ public interface InterfaceArticleService {
 
     Page<Article> page(Integer pageNum, Integer pageLimit, ArticleParam articleParam);
 
-
 }
