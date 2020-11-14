@@ -10,7 +10,7 @@ public class ArticleTagFo {
 
     @NotNull(message = "文章标签不能为空")
     @NotBlank(message = "文章标签不能为空")
-    @Size(min = 3, max = 20, message = "文章标签长度是1-20位")
+    @Size(min = 1, max = 20, message = "文章标签长度是1-20位")
     private String title;
 
     public ArticleTagFo() {

@@ -34,6 +34,7 @@ public class Article implements Serializable {
     //这是一个主键 自增主键
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "title", length = 20, columnDefinition = "varchar(255)")
@@ -92,7 +93,7 @@ public class Article implements Serializable {
     @Column(name = "update_datetime", columnDefinition = "datetime default '1970-01-01 00:00:00'")
     private Date updateDatetime;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = ArticleCategory.class)
     @JoinColumn(name = "article_category_id", referencedColumnName = "id", insertable = false, updatable = false)
     private ArticleCategory articleCategory;
 
@@ -267,4 +268,6 @@ public class Article implements Serializable {
     public void setArticleDetail(ArticleDetail articleDetail) {
         this.articleDetail = articleDetail;
     }
+
+
 }

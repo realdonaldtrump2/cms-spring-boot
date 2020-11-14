@@ -40,7 +40,6 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-
                             <div>
                                 <a th:href="@{/article/index}" class="btn btn-primary btn-icon-split btn-sm">
                                     <span class="text">列表</span>
@@ -52,7 +51,7 @@
                             <table class="table table-bordered" width="100%" cellspacing="0">
                                 <tbody>
                                 <tr>
-                                    <td>序号</td>
+                                    <td style="width: 100px;" >序号</td>
                                     <td th:text="${articleVo.id}" ></td>
                                 </tr>
                                 <tr>
@@ -67,11 +66,12 @@
                                     <td>更新时间</td>
                                     <td th:text="${articleVo.updateDatetime}" ></td>
                                 </tr>
-
-
+                                <tr>
+                                    <td>详情</td>
+                                    <td th:utext="${articleVo.articleDetailVo.detail}" ></td>
+                                </tr>
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                 </div>
