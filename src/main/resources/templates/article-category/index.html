@@ -74,19 +74,19 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="articleCategory : ${articleCategoryList}">
-                                    <td th:text="${articleCategory.id}" ></td>
-                                    <td th:text="${articleCategory.name}" ></td>
+                                <tr th:each="articleCategoryVo : ${articleCategoryVoList}">
+                                    <td th:text="${articleCategoryVo.id}" ></td>
+                                    <td th:text="${articleCategoryVo.name}" ></td>
                                     <td>
-                                        <a class="btn btn-primary btn-sm" th:href="'/article-category/view?id='+${articleCategory.id}" >
+                                        <a class="btn btn-primary btn-sm" th:href="'/article-category/view?id='+${articleCategoryVo.id}" >
                                             <span class="text">详情</span>
                                         </a>
 
-                                        <a class="btn btn-primary btn-sm" th:href="'/article-category/update?id='+${articleCategory.id}" >
+                                        <a class="btn btn-primary btn-sm" th:href="'/article-category/update?id='+${articleCategoryVo.id}" >
                                             <span class="text">编辑</span>
                                         </a>
 
-                                        <a class="btn btn-primary btn-sm delete-button" href="javascript:void(0)" th:data-id="${articleCategory.id}" th:data-url="'/article-category/delete?id='+${articleCategory.id}" >
+                                        <a class="btn btn-primary btn-sm delete-button" href="javascript:void(0)" th:data-id="${articleCategoryVo.id}" th:data-url="'/article-category/delete?id='+${articleCategoryVo.id}" >
                                             <span class="text">删除</span>
                                         </a>
                                     </td>
