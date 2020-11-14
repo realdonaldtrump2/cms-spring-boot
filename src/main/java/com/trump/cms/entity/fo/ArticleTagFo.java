@@ -37,10 +37,9 @@ public class ArticleTagFo {
         this.title = title;
     }
 
-
     @Override
     public String toString() {
-        return "ArticleFo{" +
+        return "ArticleTagFo{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 '}';

@@ -71,24 +71,30 @@
                                     <th>序号</th>
                                     <th>名称</th>
                                     <th>分类</th>
+                                    <th>标签</th>
                                     <th>管理</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="article : ${articlePage}">
-                                    <td th:text="${article.id}" ></td>
-                                    <td th:text="${article.title}" ></td>
-                                    <td th:text="${article.articleCategory.name}" ></td>
+                                <tr th:each="articleVo : ${articleVoPage}">
+                                    <td th:text="${articleVo.id}" ></td>
+                                    <td th:text="${articleVo.title}" ></td>
+                                    <td th:text="${articleVo.articleCategoryVo.name}" ></td>
                                     <td>
-                                        <a class="btn btn-primary btn-sm" th:href="'/article/view?id='+${article.id}" >
+                                        <span th:each="articleTagVo : ${articleVo.articleTagVoList}" >
+                                            <span class="badge badge-primary" th:text="${articleTagVo.title}" ></span>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary btn-sm" th:href="'/article/view?id='+${articleVo.id}" >
                                             <span class="text">详情</span>
                                         </a>
 
-                                        <a class="btn btn-primary btn-sm" th:href="'/article/update?id='+${article.id}" >
+                                        <a class="btn btn-primary btn-sm" th:href="'/article/update?id='+${articleVo.id}" >
                                             <span class="text">编辑</span>
                                         </a>
 
-                                        <a class="btn btn-primary btn-sm delete-button" href="javascript:void(0)" th:data-id="${article.id}" th:data-url="'/article/delete?id='+${article.id}" >
+                                        <a class="btn btn-primary btn-sm delete-button" href="javascript:void(0)" th:data-id="${articleVo.id}" th:data-url="'/article/delete?id='+${articleVo.id}" >
                                             <span class="text">删除</span>
                                         </a>
                                     </td>
@@ -102,21 +108,21 @@
                                     <a class="page-link" th:href="'/article/index?pageNum=0'">首页</a>
                                 </li>
                                 <!-- 上一页 -->
-                                <li class="page-item" th:if="${articlePage.hasPrevious()}">
-                                    <a class="page-link" th:href="'/article/index?pageNum=' + ${articlePage.previousPageable().getPageNumber()}" th:text="上一页"></a>
+                                <li class="page-item" th:if="${articleVoPage.hasPrevious()}">
+                                    <a class="page-link" th:href="'/article/index?pageNum=' + ${articleVoPage.previousPageable().getPageNumber()}" th:text="上一页"></a>
                                 </li>
                                 <!-- 中间页 -->
-                                <li class="page-item" th:each="pageNum:${#numbers.sequence(0, articlePage.getTotalPages() - 1)}">
-                                    <a class="page-link" th:href="'/article/index?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum ne articlePage.pageable.getPageNumber()}"></a>
-                                    <a class="page-link" th:href="'/article/index?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum eq articlePage.pageable.getPageNumber()}" th:style="'color:#ffffff;background:#4e73df;'"></a>
+                                <li class="page-item" th:each="pageNum:${#numbers.sequence(0, articleVoPage.getTotalPages() - 1)}">
+                                    <a class="page-link" th:href="'/article/index?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum ne articleVoPage.pageable.getPageNumber()}"></a>
+                                    <a class="page-link" th:href="'/article/index?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum eq articleVoPage.pageable.getPageNumber()}" th:style="'color:#ffffff;background:#4e73df;'"></a>
                                 </li>
                                 <!-- 下一页 -->
-                                <li class="page-item" th:if="${articlePage.hasNext()}">
-                                    <a class="page-link" th:href="'/article/index?pageNum=' + ${articlePage.nextPageable().getPageNumber()}" th:text="下一页"></a>
+                                <li class="page-item" th:if="${articleVoPage.hasNext()}">
+                                    <a class="page-link" th:href="'/article/index?pageNum=' + ${articleVoPage.nextPageable().getPageNumber()}" th:text="下一页"></a>
                                 </li>
                                 <!-- 尾页 -->
                                 <li class="page-item" >
-                                    <a class="page-link" th:href="'/article/index?pageNum=' + ${articlePage.getTotalPages() - 1}">尾页</a>
+                                    <a class="page-link" th:href="'/article/index?pageNum=' + ${articleVoPage.getTotalPages() - 1}">尾页</a>
                                 </li>
                             </ul>
 
