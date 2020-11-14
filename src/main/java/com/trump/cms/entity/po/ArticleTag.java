@@ -1,5 +1,4 @@
-package com.trump.cms.entity;
-
+package com.trump.cms.entity.po;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -7,17 +6,16 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 
 @Entity
@@ -25,22 +23,19 @@ import java.util.List;
 @DynamicUpdate
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "article_category")
-@SQLDelete(sql = "update article_category set is_delete = 1 where id = ?")
+@Table(name = "article_tag")
+@SQLDelete(sql = "update article_tag set is_delete = 1 where id = ?")
 @Where(clause = "is_delete = 0")
-public class ArticleCategory implements Serializable {
+public class ArticleTag implements Serializable {
+
 
     //这是一个主键 自增主键
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
-    @NotNull(message = "文章分类不能为空")
-    @Size(min = 1, max = 20, message = "文章分类长度是1-20位")
-    @Column(name = "name", length = 20, unique = true, columnDefinition = "varchar(255)")
-    private String name;
-
+    @Column(name = "title", length = 20, unique = true, columnDefinition = "varchar(255)")
+    private String title;
 
     @Column(name = "is_delete", columnDefinition = "int(11)")
     private Integer isDelete = 0;
@@ -58,16 +53,26 @@ public class ArticleCategory implements Serializable {
     @Column(name = "update_datetime", columnDefinition = "datetime default '1970-01-01 00:00:00'")
     private Date updateDatetime;
 
-    @OneToMany(mappedBy = "articleCategory")
-    private List<Article> articleList;
+    public ArticleTag() {
 
-    public ArticleCategory() {
     }
 
-    public ArticleCategory(String name) {
-        this.name = name;
+    public ArticleTag(String title) {
+        this.title = title;
     }
 
+    public ArticleTag(Integer id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
+    public ArticleTag(Integer id, String title, Integer isDelete, Date createDatetime, Date updateDatetime) {
+        this.id = id;
+        this.title = title;
+        this.isDelete = isDelete;
+        this.createDatetime = createDatetime;
+        this.updateDatetime = updateDatetime;
+    }
 
     public Integer getId() {
         return id;
@@ -77,12 +82,12 @@ public class ArticleCategory implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Integer getIsDelete() {
@@ -113,13 +118,14 @@ public class ArticleCategory implements Serializable {
 
     @Override
     public String toString() {
-        return "ArticleCategory{" +
+        return "ArticleTag{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
                 ", isDelete=" + isDelete +
                 ", createDatetime=" + createDatetime +
                 ", updateDatetime=" + updateDatetime +
                 '}';
     }
+
 
 }

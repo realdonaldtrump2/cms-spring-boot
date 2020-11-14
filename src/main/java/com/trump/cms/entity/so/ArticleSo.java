@@ -1,16 +1,10 @@
-package com.trump.cms.param;
+package com.trump.cms.entity.so;
 
+import java.io.Serializable;
 
-public class ArticleTagParam {
+public class ArticleSo implements Serializable {
 
     private String title;
-
-    public ArticleTagParam() {
-    }
-
-    public ArticleTagParam(String title) {
-        this.title = title;
-    }
 
     public String getTitle() {
         return title;
@@ -22,7 +16,7 @@ public class ArticleTagParam {
 
     @Override
     public String toString() {
-        return "ArticleTagParam{" +
+        return "ArticleParam{" +
                 "title='" + title + '\'' +
                 '}';
     }

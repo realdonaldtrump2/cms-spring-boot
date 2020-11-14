@@ -1,8 +1,5 @@
 package com.trump.cms.controller;
 
-import com.trump.cms.entity.ArticleTag;
-import com.trump.cms.param.ArticleTagParam;
-import com.trump.cms.service.ArticleTagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -13,7 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.Iterator;
+
+import com.trump.cms.entity.po.ArticleTag;
+import com.trump.cms.entity.fo.ArticleTagFo;
+import com.trump.cms.entity.so.ArticleTagSo;
+import com.trump.cms.entity.vo.ArticleTagVo;
+import com.trump.cms.service.ArticleTagService;
 
 
 @Controller
@@ -30,15 +32,15 @@ public class ArticleTagController {
             @RequestParam(value = "title", defaultValue = "") String title
     ) {
 
-        Page<ArticleTag> articleTagPage = articleTagService.page(pageNum, pageSize, new ArticleTagParam(title));
-        System.out.println("总页数" + articleTagPage.getTotalPages());
-        System.out.println("当前页是：" + pageNum);
-        System.out.println("分页数据：");
-        Iterator<ArticleTag> articleTag = articleTagPage.iterator();
-        while (articleTag.hasNext()) {
-            System.out.println(articleTag.next().toString());
-        }
-        model.addAttribute("articleTagPage", articleTagPage);
+
+        ArticleTagSo articleTagSo = new ArticleTagSo();
+        articleTagSo.setTitle(title);
+        articleTagSo.setPageNum(pageNum);
+        articleTagSo.setPageSize(pageSize);
+
+        Page<ArticleTagVo> articleTagVoPage = articleTagService.page(articleTagSo);
+//        Iterator<ArticleTagVo> articleTagVoIterator = articleTagVoPage.iterator();
+        model.addAttribute("articleTagVoPage", articleTagVoPage);
         return "article-tag/index";
 
     }
@@ -49,31 +51,32 @@ public class ArticleTagController {
             @RequestParam(value = "id", defaultValue = "0") int id
     ) {
 
-        ArticleTag articleTag = articleTagService.find(id);
-        if (articleTag == null) {
+        ArticleTagVo articleTagVo = articleTagService.find(id);
+        if (articleTagVo == null) {
             throw new RuntimeException("参数错误");
         }
-        model.addAttribute("articleTag", articleTag);
+        model.addAttribute("articleTagVo", articleTagVo);
         return "article-tag/view";
 
     }
 
     @RequestMapping(value = "/article-tag/create", method = RequestMethod.GET)
     public String create(Model model) {
-        model.addAttribute("articleTag", new ArticleTag());
+
+        ArticleTagFo articleTagFo = new ArticleTagFo();
+        model.addAttribute("articleTagFo", articleTagFo);
         return "article-tag/create";
+
     }
 
-
     @RequestMapping(value = "/article-tag/create", method = RequestMethod.POST)
-    public String save(@Valid ArticleTag articleTag, BindingResult bindingResult) {
-        System.out.println(articleTag);
+    public String save(@Valid ArticleTagFo articleTagFo, BindingResult bindingResult) {
+        System.out.println(articleTagFo);
         if (bindingResult.hasErrors()) {
             return "article-tag/create";
         }
 
-        ArticleTag articleTag2 = articleTagService.create(articleTag);
-        System.out.println(articleTag2);
+        articleTagService.create(articleTagFo);
         return "redirect:/article-tag/index";
     }
 
@@ -84,28 +87,27 @@ public class ArticleTagController {
             Model model
     ) {
 
-        ArticleTag articleTag = articleTagService.find(id);
-        if (articleTag == null) {
+        ArticleTagFo articleTagFo = articleTagService.findFo(id);
+        ;
+        if (articleTagFo == null) {
             throw new RuntimeException("参数错误");
         }
-        model.addAttribute("articleTag", articleTag);
+        model.addAttribute("articleTagFo", articleTagFo);
         return "article-tag/update";
+
     }
 
 
     @RequestMapping(value = "/article-tag/update", method = RequestMethod.POST)
     public String modify(
             @RequestParam(value = "id", defaultValue = "0") int id,
-            @Valid ArticleTag articleTag, BindingResult bindingResult
+            @Valid ArticleTagFo articleTagFo, BindingResult bindingResult
     ) {
 
-        ArticleTag articleTag2 = articleTagService.find(id);
-        if (articleTag2 == null) {
-            throw new RuntimeException("参数错误");
+        if (bindingResult.hasErrors()) {
+            return "article-tag/update";
         }
-
-        articleTagService.update(articleTag2, articleTag);
-        System.out.println(articleTag2);
+        articleTagService.update(id, articleTagFo);
         return "redirect:/article-tag/index";
 
     }
@@ -116,11 +118,7 @@ public class ArticleTagController {
             @RequestParam(value = "id", defaultValue = "0") int id
     ) {
 
-        ArticleTag articleTag = articleTagService.find(id);
-        if (articleTag == null) {
-            throw new RuntimeException("参数错误");
-        }
-        articleTagService.delete(articleTag);
+        articleTagService.delete(id);
         return "redirect:/article-tag/index";
 
     }

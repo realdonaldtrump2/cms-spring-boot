@@ -14,13 +14,11 @@ public class IndexController {
 
     }
 
-
     @RequestMapping({"/open"})
     public String open() throws Exception {
 
         throw new Exception("123");
 
     }
-
 
 }

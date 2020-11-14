@@ -30,3 +30,7 @@ spring:
     #useGlobalDataSourceStat: true
   jpa:
     show-sql: true
+
+page:
+  pageNum: 1
+  pageSize: 2

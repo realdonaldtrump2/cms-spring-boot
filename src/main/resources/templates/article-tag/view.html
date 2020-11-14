@@ -53,11 +53,19 @@
                                 <tbody>
                                 <tr>
                                     <td>序号</td>
-                                    <td th:text="${articleTag.id}" ></td>
+                                    <td th:text="${articleTagVo.id}" ></td>
                                 </tr>
                                 <tr>
                                     <td>名称</td>
-                                    <td th:text="${articleTag.title}" ></td>
+                                    <td th:text="${articleTagVo.title}" ></td>
+                                </tr>
+                                <tr>
+                                    <td>创建时间</td>
+                                    <td th:text="${articleTagVo.createDatetime}" ></td>
+                                </tr>
+                                <tr>
+                                    <td>更新时间</td>
+                                    <td th:text="${articleTagVo.updateDatetime}" ></td>
                                 </tr>
                                 </tbody>
                             </table>

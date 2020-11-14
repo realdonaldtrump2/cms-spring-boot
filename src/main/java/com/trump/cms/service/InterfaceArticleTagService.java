@@ -1,17 +1,23 @@
 package com.trump.cms.service;
 
-import com.trump.cms.entity.ArticleTag;
-import com.trump.cms.param.ArticleTagParam;
+import com.trump.cms.entity.po.ArticleTag;
+import com.trump.cms.entity.fo.ArticleTagFo;
+import com.trump.cms.entity.so.ArticleTagSo;
+import com.trump.cms.entity.vo.ArticleTagVo;
 import org.springframework.data.domain.Page;
 
 public interface InterfaceArticleTagService {
 
-    Page<ArticleTag> page(Integer pageNum, Integer pageLimit, ArticleTagParam articleTagParam);
+    Page<ArticleTagVo> page(ArticleTagSo articleTagSo);
 
-    ArticleTag create(ArticleTag articleTag);
+    ArticleTagVo find(Integer id);
 
-    ArticleTag find(Integer id);
+    ArticleTagFo findFo(Integer id);
 
-    void delete(ArticleTag articleTag);
+    ArticleTagVo create(ArticleTagFo articleTagFo);
+
+    ArticleTagVo update(Integer id, ArticleTagFo articleTagFo);
+
+    void delete(Integer id);
 
 }

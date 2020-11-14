@@ -49,7 +49,7 @@
 
                             <div style="height: 15px;" ></div>
 
-                            <form method="post" th:action="@{/article-tag/create}" th:object="${articleTag}">
+                            <form method="post" th:action="@{/article-tag/create}" th:object="${articleTagFo}">
                                 <div class="form-group">
                                     <label>名称:</label>
                                     <input type="text" th:field="*{title}" th:class="${#fields.hasErrors('title')}?'form-control is-invalid':'form-control'" >
