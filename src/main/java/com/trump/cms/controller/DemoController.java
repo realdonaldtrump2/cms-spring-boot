@@ -27,7 +27,6 @@ public class DemoController {
     public String upload() {
 
         System.out.println(fileTempPath);
-
         return "demo/upload";
 
     }
@@ -35,6 +34,7 @@ public class DemoController {
     @ResponseBody
     @RequestMapping(value = "/demo/upload/local", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Dict local(@RequestParam("file") MultipartFile file) {
+
         if (file.isEmpty()) {
             return Dict.create().set("code", 400).set("message", "文件内容为空");
         }
@@ -50,6 +50,7 @@ public class DemoController {
         }
 
         return Dict.create().set("code", 200).set("message", "上传成功").set("data", Dict.create().set("fileName", fileName).set("filePath", localFilePath));
+
     }
 
 
