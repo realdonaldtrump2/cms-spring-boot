@@ -1,8 +1,10 @@
 package com.trump.cms.service;
 
 import com.trump.cms.entity.po.ArticleCategory;
+import com.trump.cms.entity.po.ArticleDetail;
 import com.trump.cms.entity.po.ArticleTag;
 import com.trump.cms.entity.vo.ArticleCategoryVo;
+import com.trump.cms.entity.vo.ArticleDetailVo;
 import com.trump.cms.entity.vo.ArticleTagVo;
 import com.trump.cms.repository.ArticleTagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,5 +104,72 @@ public class ArticleService implements InterfaceArticleService {
         return new PageImpl<>(articleVoList, pageable, articleTagPage.getTotalElements());
 
     }
+
+
+    public ArticleVo find(Integer id) {
+
+        Article article = articleRepository.findById(id).orElse(null);
+
+        if (article == null) {
+            return null;
+        }
+
+        ArticleCategory articleCategory = article.getArticleCategory();
+        ArticleCategoryVo articleCategoryVo = new ArticleCategoryVo(
+                articleCategory.getId(),
+                articleCategory.getName(),
+                articleCategory.getIsDelete(),
+                articleCategory.getCreateDatetime(),
+                articleCategory.getUpdateDatetime()
+        );
+
+        List<ArticleTag> articleTagList = articleTagRepository.findByIdIn(article.getArticleTagId());
+        List<ArticleTagVo> articleTagVoList = articleTagList.stream().map(articleTag -> {
+            ArticleTagVo articleTagVo = new ArticleTagVo(
+                    articleTag.getId(),
+                    articleTag.getTitle(),
+                    articleTag.getIsDelete(),
+                    articleTag.getCreateDatetime(),
+                    articleTag.getUpdateDatetime()
+            );
+            return articleTagVo;
+        }).collect(Collectors.toList());
+
+        ArticleDetail articleDetail = article.getArticleDetail();
+        ArticleDetailVo articleDetailVo = new ArticleDetailVo(
+                articleDetail.getId(),
+                articleDetail.getArticleId(),
+                articleDetail.getDetail(),
+                articleDetail.getDetailPhone(),
+                articleDetail.getIsDelete(),
+                articleDetail.getCreateDatetime(),
+                articleDetail.getUpdateDatetime()
+        );
+
+        ArticleVo articleVo = new ArticleVo(
+                article.getId(),
+                article.getTitle(),
+                article.getDescribe(),
+                article.getUserId(),
+                article.getArticleCategoryId(),
+                articleCategoryVo,
+                article.getArticleTagId(),
+                articleTagVoList,
+                article.getImageUrl(),
+                article.getFileUrl(),
+                article.getVideoUrl(),
+                article.getClickCount(),
+                article.getSort(),
+                article.getIsRecommend(),
+                article.getIsShow(),
+                article.getIsDelete(),
+                article.getCreateDatetime(),
+                article.getUpdateDatetime()
+        );
+        articleVo.setArticleDetailVo(articleDetailVo);
+        return articleVo;
+
+    }
+
 
 }

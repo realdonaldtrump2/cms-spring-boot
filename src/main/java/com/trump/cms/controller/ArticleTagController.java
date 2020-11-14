@@ -1,5 +1,6 @@
 package com.trump.cms.controller;
 
+import com.trump.cms.config.MyConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,9 @@ public class ArticleTagController {
     @Autowired
     ArticleTagService articleTagService;
 
+    @Autowired
+    MyConfig myConfig;
+
     @RequestMapping("/article-tag/index")
     public String index(
             Model model,
@@ -32,6 +36,7 @@ public class ArticleTagController {
             @RequestParam(value = "title", defaultValue = "") String title
     ) {
 
+        System.out.println(myConfig.getPageNum());
 
         ArticleTagSo articleTagSo = new ArticleTagSo();
         articleTagSo.setTitle(title);

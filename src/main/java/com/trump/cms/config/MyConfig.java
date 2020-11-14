@@ -2,24 +2,32 @@ package com.trump.cms.config;
 
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 
-@Configuration
+@Component
+@ConfigurationProperties(prefix = "page")
 public class MyConfig {
 
-    public static Integer pageNum;
+    private Integer pageNum;
 
-    public static Integer pageSize;
+    private Integer pageSize;
 
-    @Value("${page.pageNum}")
-    public static void setPageNum(Integer pageNum) {
-        MyConfig.pageNum = pageNum;
+    public Integer getPageNum() {
+        return pageNum;
     }
 
-    @Value("${page.pageSize}")
-    public static void setPageSize(Integer pageSize) {
-        MyConfig.pageSize = pageSize;
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
 }

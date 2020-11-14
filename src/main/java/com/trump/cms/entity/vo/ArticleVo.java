@@ -7,6 +7,7 @@ import java.util.List;
 
 public class ArticleVo {
 
+
     private Integer id;
 
     private String title;
@@ -17,11 +18,7 @@ public class ArticleVo {
 
     private Integer articleCategoryId;
 
-    private ArticleCategoryVo articleCategoryVo;
-
     private Integer[] articleTagId;
-
-    private List<ArticleTagVo> articleTagVoList;
 
     private String[] imageUrl;
 
@@ -42,6 +39,12 @@ public class ArticleVo {
     private Date createDatetime;
 
     private Date updateDatetime;
+
+    private ArticleCategoryVo articleCategoryVo;
+
+    private List<ArticleTagVo> articleTagVoList;
+
+    private ArticleDetailVo articleDetailVo;
 
     @Override
     public String toString() {
@@ -80,6 +83,8 @@ public class ArticleVo {
         this.articleTagId = articleTagId;
         this.articleTagVoList = articleTagVoList;
         this.imageUrl = imageUrl;
+
+
         this.fileUrl = fileUrl;
         this.videoUrl = videoUrl;
         this.clickCount = clickCount;
@@ -131,28 +136,12 @@ public class ArticleVo {
         this.articleCategoryId = articleCategoryId;
     }
 
-    public ArticleCategoryVo getArticleCategoryVo() {
-        return articleCategoryVo;
-    }
-
-    public void setArticleCategoryVo(ArticleCategoryVo articleCategoryVo) {
-        this.articleCategoryVo = articleCategoryVo;
-    }
-
     public Integer[] getArticleTagId() {
         return articleTagId;
     }
 
     public void setArticleTagId(Integer[] articleTagId) {
         this.articleTagId = articleTagId;
-    }
-
-    public List<ArticleTagVo> getArticleTagVoList() {
-        return articleTagVoList;
-    }
-
-    public void setArticleTagVoList(List<ArticleTagVo> articleTagVoList) {
-        this.articleTagVoList = articleTagVoList;
     }
 
     public String[] getImageUrl() {
@@ -234,5 +223,30 @@ public class ArticleVo {
     public void setUpdateDatetime(Date updateDatetime) {
         this.updateDatetime = updateDatetime;
     }
+
+    public ArticleCategoryVo getArticleCategoryVo() {
+        return articleCategoryVo;
+    }
+
+    public void setArticleCategoryVo(ArticleCategoryVo articleCategoryVo) {
+        this.articleCategoryVo = articleCategoryVo;
+    }
+
+    public List<ArticleTagVo> getArticleTagVoList() {
+        return articleTagVoList;
+    }
+
+    public void setArticleTagVoList(List<ArticleTagVo> articleTagVoList) {
+        this.articleTagVoList = articleTagVoList;
+    }
+
+    public ArticleDetailVo getArticleDetailVo() {
+        return articleDetailVo;
+    }
+
+    public void setArticleDetailVo(ArticleDetailVo articleDetailVo) {
+        this.articleDetailVo = articleDetailVo;
+    }
+
 
 }

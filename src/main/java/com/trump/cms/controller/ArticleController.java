@@ -43,4 +43,21 @@ public class ArticleController {
     }
 
 
+    @RequestMapping("/article/view")
+    public String view(
+            Model model,
+            @RequestParam(value = "id", defaultValue = "0") int id
+    ) {
+
+        ArticleVo articleVo = articleService.find(id);
+        if (articleVo == null) {
+            throw new RuntimeException("参数错误");
+        }
+
+        model.addAttribute("articleVo", articleVo);
+        return "article/view";
+
+    }
+
+
 }

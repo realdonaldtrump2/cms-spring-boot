@@ -14,7 +14,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
@@ -30,6 +29,7 @@ import java.util.Date;
 @Where(clause = "is_delete = 0")
 @TypeDef(name = "json", typeClass = JsonStringType.class)
 public class Article implements Serializable {
+
 
     //这是一个主键 自增主键
     @Id
@@ -47,10 +47,6 @@ public class Article implements Serializable {
 
     @Column(name = "article_category_id", columnDefinition = "int(11)")
     private Integer articleCategoryId;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "article_category_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private ArticleCategory articleCategory;
 
     @Type(type = "json")
     @Column(name = "article_tag_id", columnDefinition = "json")
@@ -95,6 +91,14 @@ public class Article implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "update_datetime", columnDefinition = "datetime default '1970-01-01 00:00:00'")
     private Date updateDatetime;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "article_category_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private ArticleCategory articleCategory;
+
+    @OneToOne(cascade = CascadeType.ALL, targetEntity = ArticleDetail.class)
+    @JoinColumn(name = "id", referencedColumnName = "article_id", insertable = false, updatable = false)
+    private ArticleDetail articleDetail;
 
     @Override
     public String toString() {
@@ -256,5 +260,11 @@ public class Article implements Serializable {
         this.updateDatetime = updateDatetime;
     }
 
+    public ArticleDetail getArticleDetail() {
+        return articleDetail;
+    }
 
+    public void setArticleDetail(ArticleDetail articleDetail) {
+        this.articleDetail = articleDetail;
+    }
 }
