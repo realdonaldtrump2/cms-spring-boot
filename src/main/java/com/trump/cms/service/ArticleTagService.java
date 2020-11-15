@@ -1,5 +1,8 @@
 package com.trump.cms.service;
 
+import com.trump.cms.entity.po.ArticleCategory;
+import com.trump.cms.entity.vo.ArticleCategoryVo;
+import com.trump.cms.entity.vo.ArticleVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
@@ -59,6 +62,24 @@ public class ArticleTagService implements InterfaceArticleTagService {
 
     }
 
+    public List<ArticleTagVo> all() {
+
+        List<ArticleTag> articleTagList = articleTagRepository.findAll();
+
+        List<ArticleTagVo> articleTagVoList = articleTagList.stream().map(articleTag -> {
+            ArticleTagVo articleTagVo = new ArticleTagVo(
+                    articleTag.getId(),
+                    articleTag.getTitle(),
+                    articleTag.getIsDelete(),
+                    articleTag.getCreateDatetime(),
+                    articleTag.getUpdateDatetime()
+            );
+            return articleTagVo;
+        }).collect(Collectors.toList());
+
+        return articleTagVoList;
+
+    }
 
     public ArticleTagVo find(Integer id) {
 

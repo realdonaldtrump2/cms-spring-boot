@@ -6,9 +6,13 @@ import com.trump.cms.entity.so.ArticleTagSo;
 import com.trump.cms.entity.vo.ArticleTagVo;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 public interface InterfaceArticleTagService {
 
     Page<ArticleTagVo> page(ArticleTagSo articleTagSo);
+
+    List<ArticleTagVo> all();
 
     ArticleTagVo find(Integer id);
 

@@ -16,7 +16,7 @@ public class ArticleTagFo {
     public ArticleTagFo() {
     }
 
-    public ArticleTagFo(Integer id, String title) {
+    public ArticleTagFo(Integer id, @NotNull(message = "文章标签不能为空") @NotBlank(message = "文章标签不能为空") @Size(min = 1, max = 20, message = "文章标签长度是1-20位") String title) {
         this.id = id;
         this.title = title;
     }

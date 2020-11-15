@@ -5,6 +5,8 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Arrays;
+
 
 public class ArticleFo {
 
@@ -24,42 +26,45 @@ public class ArticleFo {
     private Integer userId;
 
     @NotNull(message = "文章分类不能为空")
-    @NotBlank(message = "文章分类不能为空")
-    @Digits(integer = 11, fraction = 0, message = "文章分类参数错误")
     private Integer articleCategoryId;
 
     @NotNull(message = "文章标签不能为空")
-    @NotBlank(message = "文章标签不能为空")
     private Integer[] articleTagId;
 
-    private String[] imageUrl;
-
-    private String[] fileUrl;
-
-    private String[] videoUrl;
-
+    @NotNull(message = "文章排序不能为空")
     private Integer sort;
 
+    @NotNull(message = "文章是否推荐不能为空")
     private Integer isRecommend;
 
+    @NotNull(message = "文章是否展示不能为空")
     private Integer isShow;
+
+    @NotNull(message = "文章内容不能为空")
+    @NotBlank(message = "文章内容不能为空")
+    @Size(min = 1, message = "文章手机内容不能为空")
+    private String detail;
+
+    @NotNull(message = "文章手机内容不能为空")
+    @NotBlank(message = "文章手机内容不能为空")
+    @Size(min = 1, message = "文章手机内容不能为空")
+    private String detailPhone;
 
     public ArticleFo() {
     }
 
-    public ArticleFo(Integer id, String title, String describe, Integer userId, Integer articleCategoryId, Integer[] articleTagId, String[] imageUrl, String[] fileUrl, String[] videoUrl, Integer sort, Integer isRecommend, Integer isShow) {
+    public ArticleFo(Integer id, @NotNull(message = "文章标题不能为空") @NotBlank(message = "文章标题不能为空") @Size(min = 1, max = 50, message = "文章标题长度是1-50位") String title, @NotNull(message = "文章描述不能为空") @NotBlank(message = "文章描述不能为空") @Size(min = 1, max = 255, message = "文章描述长度是1-255位") String describe, Integer userId, @NotNull(message = "文章分类不能为空") Integer articleCategoryId, @NotNull(message = "文章标签不能为空") Integer[] articleTagId, @NotNull(message = "文章排序不能为空") Integer sort, @NotNull(message = "文章是否推荐不能为空") Integer isRecommend, @NotNull(message = "文章是否展示不能为空") Integer isShow, @NotNull(message = "文章内容不能为空") @NotBlank(message = "文章内容不能为空") @Size(min = 1, message = "文章手机内容不能为空") String detail, @NotNull(message = "文章手机内容不能为空") @NotBlank(message = "文章手机内容不能为空") @Size(min = 1, message = "文章手机内容不能为空") String detailPhone) {
         this.id = id;
         this.title = title;
         this.describe = describe;
         this.userId = userId;
         this.articleCategoryId = articleCategoryId;
         this.articleTagId = articleTagId;
-        this.imageUrl = imageUrl;
-        this.fileUrl = fileUrl;
-        this.videoUrl = videoUrl;
         this.sort = sort;
         this.isRecommend = isRecommend;
         this.isShow = isShow;
+        this.detail = detail;
+        this.detailPhone = detailPhone;
     }
 
     public Integer getId() {
@@ -110,30 +115,6 @@ public class ArticleFo {
         this.articleTagId = articleTagId;
     }
 
-    public String[] getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String[] imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public String[] getFileUrl() {
-        return fileUrl;
-    }
-
-    public void setFileUrl(String[] fileUrl) {
-        this.fileUrl = fileUrl;
-    }
-
-    public String[] getVideoUrl() {
-        return videoUrl;
-    }
-
-    public void setVideoUrl(String[] videoUrl) {
-        this.videoUrl = videoUrl;
-    }
-
     public Integer getSort() {
         return sort;
     }
@@ -158,5 +139,37 @@ public class ArticleFo {
         this.isShow = isShow;
     }
 
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public String getDetailPhone() {
+        return detailPhone;
+    }
+
+    public void setDetailPhone(String detailPhone) {
+        this.detailPhone = detailPhone;
+    }
+
+    @Override
+    public String toString() {
+        return "ArticleFo{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", describe='" + describe + '\'' +
+                ", userId=" + userId +
+                ", articleCategoryId=" + articleCategoryId +
+                ", articleTagId=" + Arrays.toString(articleTagId) +
+                ", sort=" + sort +
+                ", isRecommend=" + isRecommend +
+                ", isShow=" + isShow +
+                ", detail='" + detail + '\'' +
+                ", detailPhone='" + detailPhone + '\'' +
+                '}';
+    }
 
 }

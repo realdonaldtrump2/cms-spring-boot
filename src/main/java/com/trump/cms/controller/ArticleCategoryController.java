@@ -18,7 +18,7 @@ public class ArticleCategoryController {
 
     @RequestMapping("/article-category/index")
     public String index(
-        Model model
+            Model model
     ) {
 
         List<ArticleCategoryVo> articleCategoryVoList = articleCategoryService.all();
